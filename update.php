@@ -21,6 +21,8 @@ $picturetypes=array("png","jpg","jpeg");
 $sizepp = $_FILES["profilepic"]["size"];
 $sizecp = $_FILES["coverpic"]["size"];          	 
 
+$branch = $_POST['branch'];
+
 include 'dbconnect.php';
 $usrr=$_SESSION['uname'];
                echo $usrr;
@@ -30,13 +32,13 @@ $usrr=$_SESSION['uname'];
             	if(in_array($extentionpp, $picturetypes)&&in_array($extentionpp, $picturetypes))	
                 {
                		
-               		$sql3 = "UPDATE user SET profilepic='$filepp' and coverpic='$filecp'  WHERE username='$usrr' ;";
+               		$sql3 = "UPDATE user SET profilepic='$filepp' , coverpic='$filecp' ,branch='$branch' WHERE username='$usrr' ;";
                		$query3=mysqli_query($conn,$sql3);
                		
                		if($query3!=0)
 						{
  							if(move_uploaded_file($tmpfilepp, $filepp)&&move_uploaded_file($tmpfilecp, $filecp))
-  							{   
+  							{   echo "HELLO";
   								echo "Added Successfully";  header("location: /timeline.php"); 
   							}
   			    		}
@@ -48,8 +50,13 @@ $usrr=$_SESSION['uname'];
 
 
                 }
+                else
+                	echo "Error 2";
 			}             
-
+            else
+            {
+            	echo "Error";
+            }
 
              
 
