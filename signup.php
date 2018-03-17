@@ -7,19 +7,25 @@
 </head>
 <body>
 <h1> Sign Up</h1>
- <form method="POST"  name="signupform"   action="/" onsubmit="return check(); "  >
+ <form method="POST"  action="signup.php" name="signupform"   action="/" onsubmit="return check(); sessiona();"  >
  	Name <br>  <input type="text" name="name" placeholder="Enter Your Name"   onkeydown="reenter()">   <span id="nm"></span>   <br>   
     Username <br>  <input type="text" name="username" placeholder="Enter Username"  onkeyup="checkusrname()"  onkeydown="reenter()" > <span id="usr"></span> <br>Mobile No. <br> <input type="text" name="mbno" placeholder="Enter Your Mobile Number"   onkeydown="reenter()" >  <span id="mb"></span>  <br>
     Email <br> <input type="text" name="email" placeholder="Enter Your Email address"  onkeydown="reenter()" >  <span id="em"></span> <br>
+    Password <br>  <input type="password" name="pass"> <br> <br>
     Gender  <span id ="gn" style="margin-left: 120px;"> </span>  <br>
+
     <input type="radio" name="gender" value="male"  onclick="reenter()"> Male <br>
     <input type="radio" name="gender" value="female"  onclick="reenter()"> Female <br>
     <input type="radio" name="gender" value="other" onclick="reenter()"> Others <br>
+
     <input type="submit" name="submit">
  </form>
 
+
 <script type="text/javascript">
+
 	
+
 function checkusrname()
 {    
 	 var user = document.forms['signupform']['username'].value;
@@ -67,13 +73,13 @@ if(regexno2==false)
 
   if(gender1 == "" ){    document.getElementById("gn").innerHTML="Please Select Your gender";   a=1; }
 
-
-if(a==1){     return false;   }
+if(a==1){    return false;   }
   else
-  {  document.cookie="username="+usr1;
-document.signupform.action="connsignup.php";
+  {  
+  document.signupform.action="connsignup.php";
 
   }
+
 
 
  
@@ -89,7 +95,6 @@ function reenter()
 }
 
 </script>
-
 
 </body>
 </html>

@@ -1,5 +1,5 @@
-<?
-
+<?php
+session_start();
 $directory = "uploads/";
 $filepp = $directory.basename($_FILES["profilepic"]["name"]);
 $filecp = $directory.basename($_FILES["coverpic"]["name"]);
@@ -18,22 +18,42 @@ $errorcp=$_FILES["coverpic"]["error"];
 
 $picturetypes=array("png","jpg","jpeg");
 
-            
-          	 
+$sizepp = $_FILES["profilepic"]["size"];
+$sizecp = $_FILES["coverpic"]["size"];          	 
+
 include 'dbconnect.php';
-
+$usrr=$_SESSION['uname'];
+               echo $usrr;
           
-             $usr=$_COOKIE['username'];
-               echo $name."<br>";
+            if($errorpp==0&&$errorcp==0)
+            {
+            	if(in_array($extentionpp, $picturetypes)&&in_array($extentionpp, $picturetypes))	
+                {
+               		
+               		$sql3 = "UPDATE user SET profilepic='$filepp' and coverpic='$filecp'  WHERE username='$usrr' ;";
+               		$query3=mysqli_query($conn,$sql3);
+               		
+               		if($query3!=0)
+						{
+ 							if(move_uploaded_file($tmpfilepp, $filepp)&&move_uploaded_file($tmpfilecp, $filecp))
+  							{   
+  								echo "Added Successfully";  header("location: /timeline.php"); 
+  							}
+  			    		}
+  			    	else
+  			    	{	
+                 	die("Error in inserting the images".mysqli_error($conn));
+                 	}
+ 
 
-               $sql = "UPDATE user SET profilepic='$filepp' and coverpic='$filecp'  WHERE username='$usr' ;";
-               $query=mysqli_query($conn,$sql);
-               if($query!=0)
-				{
- 					if(move_uploaded_file($tmpfile, $file))
-  					{   echo "Added Successfully";  header("location: ./timeline.php"); }
-  			    }
 
+                }
+			}             
+
+
+             
+
+               
                 
                     
 ?>
