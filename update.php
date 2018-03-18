@@ -26,6 +26,8 @@ $branch = $_POST['branch'];
 include 'dbconnect.php';
 $usrr=$_SESSION['uname'];
                echo $usrr;
+               echo $tmpfilepp;
+               echo $filepp;
           
             if($errorpp==0&&$errorcp==0)
             {
@@ -35,13 +37,13 @@ $usrr=$_SESSION['uname'];
                		$sql3 = "UPDATE user SET profilepic='$filepp' , coverpic='$filecp' ,branch='$branch' WHERE username='$usrr' ;";
                		$query3=mysqli_query($conn,$sql3);
                		
-               		if($query3!=0)
+			               		if($query3!=0)
 						{
- 							if(move_uploaded_file($tmpfilepp, $filepp)&&move_uploaded_file($tmpfilecp, $filecp))
-  							{   echo "HELLO";
-  								echo "Added Successfully";  header("location: /timeline.php"); 
-  							}
-  			    		}
+ 							
+ 					        	move_uploaded_file($tmpfilepp, $filepp);
+ 							move_uploaded_file($tmpfilecp, $filecp);
+  							header("location: /php-assignment/feedpage.php");	
+  			    			}
   			    	else
   			    	{	
                  	die("Error in inserting the images".mysqli_error($conn));
